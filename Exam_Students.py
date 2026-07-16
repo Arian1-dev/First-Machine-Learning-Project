@@ -4,7 +4,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import Adam
 from sklearn.model_selection import train_test_split
-
+import matplotlib.pyplot as plt
 #data1=[]
 
 
@@ -52,7 +52,7 @@ X = np.hstack([
     conversion(df['Attendence']),
     conversion(df['homework '])
 ])
-y = conversion(df['Pass ']).ravel()
+y =np.array( conversion(df['Pass ']),dtype=np.float32)
 #data1=np.array(conversion(dcol1),dtype=np.float32)
 
 #data2=np.array(conversion(dcol2),dtype=np.float32)
@@ -115,7 +115,6 @@ def train_evaluate_models(X, y, configs, epochs=100, test_size=0.2):
 
         # Evaluate on test set
         test_loss, test_acc = model.evaluate(X_test, y_test, verbose=0)
-
         # Parameter count
         param_count = model.count_params()
 
@@ -126,3 +125,34 @@ def train_evaluate_models(X, y, configs, epochs=100, test_size=0.2):
             'Test Loss': test_loss,
             'Parameters': param_count
         })
+        
+        print(f"Test Loss: {test_loss:.4f}, Test Accuracy: {test_acc:.4f}")
+        print(f"Trainable Parameters: {param_count}")
+
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
+        fig.suptitle(cfg['name'])
+        
+        #Accuracy
+        ax1.plot(history.history['accuracy'], label='Train Acc')
+        ax1.plot(history.history['val_accuracy'], label='Val Acc')
+        ax1.set_title('Accuracy')
+        ax1.set_xlabel('Epoch')
+        ax1.set_ylabel('Accuracy')
+        ax1.legend()
+        ax1.grid(True)
+        
+        #Loss
+        ax2.plot(history.history['loss'], label='Train Loss')
+        ax2.plot(history.history['val_loss'], label='Val Loss')
+        ax2.set_title('Loss')
+        ax2.set_xlabel('Epoch')
+        ax2.set_ylabel('Loss')
+        ax2.legend()
+        ax2.grid(True)
+
+        plt.tight_layout()
+        plt.show()
+        
+        
+        
+o=train_evaluate_models(X,y,configs)
