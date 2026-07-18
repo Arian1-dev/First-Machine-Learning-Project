@@ -74,9 +74,9 @@ arch3 = [256, 128]
 
 
 configs = [
-    {'arch': arch1, 'activation': 'relu', 'optimizer': Adam(learning_rate=0.001), 'name': 'Model1_ReLU_Adam'},
-    {'arch': arch2, 'activation': 'relu', 'optimizer': Adam(learning_rate=0.001), 'name': 'Model2_Deep_Adam'},
-    {'arch': arch3, 'activation': 'tanh', 'optimizer': Adam(learning_rate=0.001), 'name': 'Model3_Wide_Tanh_Adam'},
+    {'arch': arch1, 'activation': 'relu', 'optimizer': 'adam', 'name': 'Model1_ReLU_Adam'},
+    {'arch': arch2, 'activation': 'relu', 'optimizer': 'adam', 'name': 'Model2_Deep_Adam'},
+    {'arch': arch3, 'activation': 'tanh', 'optimizer': 'adam', 'name': 'Model3_Wide_Tanh_Adam'},
 ]
   
   
